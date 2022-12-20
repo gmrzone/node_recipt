@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  node-api:
+    build:
+      context: .
+    container_name: node_api
+    depends_on:
+      - pg_database
+
+  pg_database:
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    image: postgres
+    container_name: node_database
+    ports:
+      - 5435:5435
+volumes:
+  pgdata:

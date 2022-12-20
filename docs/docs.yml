@@ -1,0 +1,118 @@
+openapi: 3.0.3
+info:
+  title: OpenAPI 3.0
+  description: |-
+    Open API
+
+    Some useful links:
+    - [My Github](https://github.com/gmrzone)
+  contact:
+    email: saiyedafzalgz@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+tags:
+  - name: Recipts
+    description: All endpoints related to Recipts
+
+paths:
+  /recipts:
+    get:
+      tags:
+        - Recipts
+      summary: Get list of recipts
+      description: Get list of recipts
+      operationId: getRecipts
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/recipts'
+    put:
+      tags:
+        - Recipts
+      summary: Register a recipts
+      description: Register a recipts
+      operationId: registerRecipt
+      requestBody:
+        description: request body can be json or url encoded form
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/reciptRequestBody'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/reciptRequestBody'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/recipts'
+  /recipts/{reciptId}:
+    get:
+      tags:
+        - Recipts
+      summary: Get single recipts
+      description: Get single recipts
+      operationId: getRecipt
+      parameters:
+        - name: reciptId
+          in: path
+          description: recipt ID
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipts'
+      
+components:
+  schemas:
+    recipts:
+      type: object
+      properties:
+        id: 
+          type: number
+          expamle: 1
+        title:
+          type: string
+        cost: 
+          type: string
+        categoryId:
+          type: number
+          example: 1
+        time:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    reciptRequestBody:
+      type: object
+      properties:
+        title:
+          type: string
+        cost:
+          type: string
+          example: "25.06"
+        categoryId:
+          type: number
+        time:
+          type: string
+          example: "2022-12-18T13:18:44.380Z"

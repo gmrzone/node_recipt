@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  node-api:
+    env_file: ./env/.dev.env
+    volumes:
+      - .:/interview_task
+    ports:
+      - 8080:8080
+    command: sh -c "/wait && npm run dev"
+
+  pg_database:
+    volumes:
+      - ./scripts/postgres_init.dev.sh:/docker-entrypoint-initdb.d/init_sql_dev.sh
+    env_file: ./env/.dev.env
+    restart: unless-stopped
